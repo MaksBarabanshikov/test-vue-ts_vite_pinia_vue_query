@@ -1,29 +1,28 @@
-import {createRouter} from 'vue-router'
-import Home from '@/pages/home/Home.vue'
-import SignIn from '@/pages/sing-in/SingIn.vue'
-import Cart from '@/pages/cart/Cart.vue'
-
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "@/pages/home/home-view.vue";
+import SignIn from "@/pages/sing-in/sing-in.vue";
+import Cart from "@/pages/cart/cart-view.vue";
 
 const routes = [
-    {
-        path: '/',
-        component: Home
-    },
+  {
+    path: "/",
+    component: Home,
+  },
 
-    {
-        path: '/sign-in',
-        component: SignIn
-    },
+  {
+    path: "/sign-in",
+    component: SignIn,
+  },
 
-    {
-        path: '/cart',
-        component: Cart
-    },
-]
+  {
+    path: "/cart",
+    component: Cart,
+  },
+];
 
-export default function (history: any) {
-    return createRouter({
-        routes,
-        history
-    })
-}
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;

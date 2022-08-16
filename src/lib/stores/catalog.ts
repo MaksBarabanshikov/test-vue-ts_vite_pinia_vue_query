@@ -1,30 +1,25 @@
 import { defineStore } from "pinia";
+import { PokemonResponse, PokemonResult } from "@/types/api";
 
-export const useCatalog = defineStore('catalog-store', {
-    state: () => ({
-        newArrivals: [],
-        fetching: false
-    }),
+export type CatalogState = {
+  newArrivals: PokemonResult[];
+};
 
-    getters: {
-        results: (state) => state.newArrivals,
-        isFetching: (state) => state.fetching
+export const useCatalog = defineStore("catalog-store", {
+  state: () =>
+    ({
+      newArrivals: [],
+    } as CatalogState),
+
+  getters: {
+    results: (state) => state.newArrivals,
+  },
+
+  actions: {
+    async fetchingNewArrivals(): Promise<PokemonResponse> {
+      return await fetch("https://pokeapi.co/api/v2/pokemon").then((response) =>
+        response.json()
+      );
     },
-
-    actions: {
-        async fetchingNewArrivals() {
-            this.fetching = true;
-            const response = await fetch('/data/new-arrivals.json');
-            try {
-                const result = await response.json();
-                this.newArrivals = result.books;
-            } catch (err) {
-                this.newArrivals = [];
-                console.error('Error loading new arrivals:', err);
-                return err;
-            }
-
-            this.fetching = false;
-        }
-    }
-})
+  },
+});

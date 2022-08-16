@@ -1,15 +1,17 @@
-import { createApp } from 'vue'
-import { createWebHistory } from "vue-router"
-import { createPinia } from "pinia";
+import { createApp } from "vue";
+import { createPinia, PiniaVuePlugin } from "pinia";
+import { VueQueryPlugin } from "vue-query";
+import router from "@/lib/router";
 
-import createRouter from "@/lib/router"
-import App from '@/App.vue'
+import App from "@/App.vue";
 
-import '@/style.css'
-const store = createPinia()
-const router = createRouter(createWebHistory())
-const app = createApp(App)
+import "@/style.css";
+const store = createPinia();
+const app = createApp(App);
+
 app
-    .use(router)
-    .use(store)
-    .mount('#app')
+  .use(router)
+  .use(PiniaVuePlugin)
+  .use(store)
+  .use(VueQueryPlugin)
+  .mount("#app");
